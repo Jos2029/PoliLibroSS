@@ -152,6 +152,7 @@ html, body {
   position: relative;
 }
 
+
 .pagina-bienvenida::before {
   content: "";
   position: absolute;

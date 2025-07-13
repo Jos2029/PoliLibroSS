@@ -11,58 +11,57 @@
   <header class="header">
     <div class="logo-escom">ESCOM IPN</div>
     <nav class="nav-links">
-      <a href="#" class="link-inicio">Inicio</a>
-      <a href="#" class="link-glosario">Glosario</a>
-      <a href="#" class="link-cursos">Cursos</a>
-      <a href="#" class="link-curso-actual">Curso Actual</a>
-      <a href="#" class="link-contacto">Contacta a tu profesor</a>
+      <a href="#">Inicio</a>
+      <a href="#">Glosario</a>
+      <a href="#">Cursos</a>
+      <a href="#">Curso Actual</a>
+      <a href="#">Contacta a tu profesor</a>
     </nav>
     <div class="login-link">Login</div>
   </header>
 
-  <main class="main">
-    <h1 class="titulo-principal">Plataforma de educación a distancia.</h1>
+  <div class="franja-titulo">
+    <h1 class="titulo-franja" id="titulo-franja">Bienvenida</h1>
+  </div>
+
+  <main class="contenedor-paginado">
+    <!-- PÁGINA 1: BIENVENIDA -->
+    <div class="pagina pagina-bienvenida activa" data-titulo="Bienvenida">
+      <div class="contenido-pagina">
+        <h2>Bienvenida</h2>
+        <p>
+          Apreciable estudiantado, te damos la más cordial bienvenida a este recurso didáctico correspondiente a la unidad de aprendizaje Algoritmos y estructuras de datos. Esta unidad es la primera de un total de tres, dentro del programa de la carrera Ingeniería en Sistemas Computacionales que se imparte en la Escuela Superior de Cómputo del Instituto Politécnico Nacional. El contenido de esta unidad pertenece al plan de estudios 2020 y se encuentra en el área de formación profesional, impartido durante el segundo semestre en modalidad escolarizada. La unidad consta de tres temas principales y contempla un total de 4.5 horas de estudio semanal, distribuidas en 3 horas teóricas, 1.5 horas prácticas y 16 horas de aprendizaje autónomo.
+        </p>
+      </div>
+    </div>
+
+    <!-- PÁGINA 2: INTENCIÓN EDUCATIVA -->
+    <div class="pagina pagina-intencion" data-titulo="Intención Educativa">
+      <div class="contenido-pagina">
+        <h2>Intención Educativa</h2>
+        <p>
+          Contribuir con el perfil de egreso de Ingeniería en Sistemas Computacionales, proporcionando los conocimientos con el desarrollo de habilidades para el manejo de los datos en la memoria empleando estructuras de datos y algoritmos de ordenamiento y búsqueda en los sistemas computacionales, así como trabajo en equipo, comunicación efectiva, ética, resolución de problemas, creatividad e ingenio.
+        </p>
+      </div>
+    </div>
+
+    <!-- PÁGINA 3: COMPETENCIA -->
+    <div class="pagina pagina-competencia" data-titulo="Competencia">
+      <div class="contenido-pagina">
+        <h2>Competencia</h2>
+        <p>Identifica algoritmos fundamentales de la computación con base en sus órdenes de complejidad.</p>
+      </div>
+    </div>
+
+    <div class="botones-paginacion">
+      <button onclick="cambiarPagina(-1)">Atrás</button>
+      <button onclick="irAPagina(0)">1</button>
+      <button onclick="irAPagina(1)">2</button>
+      <button onclick="irAPagina(2)">3</button>
+      <button onclick="cambiarPagina(1)">Siguiente</button>
+    </div>
   </main>
 
-  <section class="seccion-cursos">
-    <h2 class="titulo-cursos">Cursos en progreso</h2>
-    <div class="contenedor-cursos">
-      <div class="curso">
-        <img src="img/linux.jpg" alt="Linux" class="imagen-curso" />
-        <p class="nombre-curso">Sistemas Operativos</p>
-      </div>
-      <div class="curso">
-        <img src="img/algoritmos.jpg" alt="Algoritmos" class="imagen-curso" />
-        <p class="nombre-curso">Algoritmos y Estructura de Datos</p>
-      </div>
-      <div class="curso">
-        <img src="img/teoria.jpg" alt="Teoría" class="imagen-curso" />
-        <p class="nombre-curso">Teoría de la Computación</p>
-      </div>
-    </div>
-    <div class="boton-cursos">
-      <a href="#" class="ver-todos">VER TODOS LOS CURSOS</a>
-    </div>
-  </section>
-
-  <section class="seccion-glosario">
-    <h2 class="titulo-glosario">Glosario (conceptos recién agregados)</h2>
-    <div class="contenedor-glosario">
-      <div class="item-glosario">
-        <h3 class="concepto-glosario">Ambiente de Seguridad</h3>
-        <p class="descripcion-glosario">Conjunto de políticas, herramientas, procesos y tecnologías para proteger sistemas frente a amenazas y accesos no autorizados.</p>
-      </div>
-      <div class="item-glosario">
-        <h3 class="concepto-glosario">Aislamiento de Procesos</h3>
-        <p class="descripcion-glosario">Mecanismo que evita que un proceso interfiera o acceda a la información de otro sin autorización.</p>
-      </div>
-      <div class="item-glosario">
-        <h3 class="concepto-glosario">Autenticación</h3>
-        <p class="descripcion-glosario">Verificación de identidad de un usuario antes de permitirle acceso a recursos.</p>
-      </div>
-    </div>
-  </section>
-  
   <footer class="footer">
     <div class="footer-columna">
       <h3 class="footer-titulo">Plataforma de educación a distancia</h3>
@@ -80,6 +79,33 @@
          (555) 555-5555</p>
     </div>
   </footer>
-  
+
+  <script>
+    let paginaActual = 0;
+    const paginas = document.querySelectorAll(".pagina");
+    const tituloFranja = document.getElementById("titulo-franja");
+
+    function mostrarPagina(index) {
+      paginas.forEach((pagina, i) => {
+        pagina.classList.toggle("activa", i === index);
+      });
+      // Actualizar el título de la franja
+      tituloFranja.textContent = paginas[index].getAttribute("data-titulo");
+    }
+
+    function cambiarPagina(direccion) {
+      paginaActual = (paginaActual + direccion + paginas.length) % paginas.length;
+      mostrarPagina(paginaActual);
+    }
+
+    function irAPagina(index) {
+      paginaActual = index;
+      mostrarPagina(paginaActual);
+    }
+
+    // Inicializar la página
+    mostrarPagina(paginaActual);
+  </script>
+
 </body>
 </html>

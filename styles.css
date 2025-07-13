@@ -64,7 +64,7 @@ html, body {
 
 /* CONTENEDOR PRINCIPAL */
 .contenedor-paginado {
-  height: calc(100vh - 160px); /* header + footer */
+  height: calc(100vh - 260px); /* header(80px) + franja(60px) + botones(60px) + footer(60px) */
   overflow: hidden;
   position: relative;
 }
@@ -78,7 +78,8 @@ html, body {
   justify-content: center;
   align-items: flex-start;
   text-align: center;
-  padding-top: 50px;
+  padding-top: 30px;
+  overflow: hidden; /* Sin scroll en páginas */
 }
 
 .pagina.activa {
@@ -89,30 +90,65 @@ html, body {
 .contenido-pagina {
   position: relative;
   z-index: 1;
-  max-width: 800px;
+  width: calc(100% - 40px);
+  max-width: 1200px;
+  height: calc(100% - 40px);
   padding: 30px;
   border-radius: 12px;
   background-color: rgba(255, 255, 255, 0.95);
   color: #333;
-  text-align: center;
+  text-align: left;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  overflow-y: auto; /* Scroll dentro del contenido */
 }
 
 .contenido-pagina h2 {
   margin-bottom: 20px;
   font-size: 28px;
+  text-align: center;
+  color: #045fb4;
+}
+
+.contenido-pagina h3 {
+  margin-top: 25px;
+  margin-bottom: 15px;
+  font-size: 20px;
+  color: #045fb4;
 }
 
 .contenido-pagina p {
   line-height: 1.6;
   font-size: 16px;
+  margin-bottom: 15px;
+}
+
+.contenido-pagina ul {
+  margin: 15px 0;
+  padding-left: 20px;
+}
+
+.contenido-pagina li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.contenido-pagina a {
+  color: #045fb4;
+  text-decoration: none;
+}
+
+.contenido-pagina a:hover {
+  text-decoration: underline;
 }
 
 /* ========== ESTILOS ESPECÍFICOS POR PÁGINA ========== */
 
 /* PÁGINA 1: BIENVENIDA */
 .pagina-bienvenida {
-  background: url("img/escom.jpg") no-repeat center center/cover;
+  background: 
+    linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url('img/escom.jpg') center/cover,
+    linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
   position: relative;
 }
 
@@ -122,7 +158,8 @@ html, body {
   top: 0; left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.45);
+  background: url('img/escom.jpg') center/cover;
+  opacity: 0.2;
   z-index: 0;
 }
 
@@ -130,59 +167,148 @@ html, body {
   background-color: rgba(0, 0, 0, 0.35);
   color: #fff;
   text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+  text-align: center;
+}
+
+.pagina-bienvenida .contenido-pagina h2 {
+  color: #fff;
 }
 
 /* PÁGINA 2: INTENCIÓN EDUCATIVA */
 .pagina-intencion {
-  /* Estilos específicos para la página de intención educativa */
-  /* Aquí puedes agregar propiedades únicas para esta página */
+  background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
 }
 
 .pagina-intencion .contenido-pagina {
-  /* Estilos específicos para el contenido de intención educativa */
-  /* Por ejemplo: background-color, color, etc. */
+  background-color: rgba(255, 255, 255, 0.9);
+  text-align: center;
 }
 
 /* PÁGINA 3: COMPETENCIA */
 .pagina-competencia {
-  /* Estilos específicos para la página de competencia */
-  /* Aquí puedes agregar propiedades únicas para esta página */
+  background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
 }
 
 .pagina-competencia .contenido-pagina {
-  /* Estilos específicos para el contenido de competencia */
-  /* Por ejemplo: background-color, color, etc. */
+  background-color: rgba(255, 255, 255, 0.95);
+  text-align: center;
 }
 
-/* ========== PLANTILLA PARA NUEVAS PÁGINAS ========== */
-/*
-.pagina-nueva {
-  Estilos específicos para la nueva página
+/* PÁGINA 4: PROPÓSITO */
+.pagina-proposito {
+  background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
 }
 
-.pagina-nueva .contenido-pagina {
-  Estilos específicos para el contenido de la nueva página
+.pagina-proposito .contenido-pagina {
+  background-color: rgba(255, 255, 255, 0.9);
+  text-align: center;
 }
-*/
 
-.contenido-pagina h2 {
+/* PÁGINA 5: METODOLOGÍA */
+.pagina-metodologia {
+  background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+}
+
+.pagina-metodologia .contenido-pagina {
+  background-color: rgba(255, 255, 255, 0.95);
+  overflow: hidden; /* Sin scroll en el contenedor principal */
+}
+
+.contenido-metodologia {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.contenido-metodologia h2 {
+  flex-shrink: 0; /* El título no se reduce */
   margin-bottom: 20px;
-  font-size: 28px;
 }
 
-.contenido-pagina p {
-  line-height: 1.6;
-  font-size: 16px;
+.contenido-scrollable {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.contenido-scrollable::-webkit-scrollbar {
+  width: 8px;
+}
+
+.contenido-scrollable::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.contenido-scrollable::-webkit-scrollbar-thumb {
+  background: #045fb4;
+  border-radius: 10px;
+}
+
+.contenido-scrollable::-webkit-scrollbar-thumb:hover {
+  background: #033b82;
+}
+
+/* PÁGINA 6: REQUERIMIENTOS */
+.pagina-requerimientos {
+  background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+}
+
+.pagina-requerimientos .contenido-pagina {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* PÁGINA 7: DOCENTES */
+.pagina-docentes {
+  background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+}
+
+.pagina-docentes .contenido-pagina {
+  background-color: rgba(255, 255, 255, 0.95);
+}
+
+.docente-info {
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: rgba(4, 95, 180, 0.05);
+  border-radius: 8px;
+  border-left: 4px solid #045fb4;
+}
+
+.docente-info h3 {
+  color: #045fb4;
+  margin-bottom: 10px;
+  font-size: 22px;
+}
+
+.docente-info p {
+  margin-bottom: 10px;
+}
+
+.docente-info strong {
+  color: #045fb4;
+}
+
+/* CONTENEDOR DE BOTONES */
+.contenedor-botones {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 40px;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-top: 1px solid #e0e0e0;
+  position: relative;
+  z-index: 100;
 }
 
 /* BOTONES PAGINACIÓN */
 .botones-paginacion {
-  position: fixed;
-  bottom: 150px;
-  right: 30px;
   display: flex;
   gap: 10px;
-  z-index: 900;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .botones-paginacion button {
@@ -192,43 +318,114 @@ html, body {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 14px;
 }
 
 .botones-paginacion button:hover {
   background-color: #033b82;
 }
 
+.btn-contenido {
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 14px;
+  display: inline-block;
+}
+
+.btn-contenido:hover {
+  background-color: #45a049;
+}
+
 /* FOOTER */
 .footer {
-  position: fixed;
-  bottom: 0;
+  height: 60px;
   width: 100%;
   background-color: #e9edf1;
-  padding: 10px 10px;
+  padding: 5px 40px;
   display: flex;
   justify-content: space-around;
-  align-items: flex-start;
-  flex-wrap: wrap;
+  align-items: center;
   color: #000;
-  font-size: 14px;
-  z-index: 999;
+  font-size: 12px;
   box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+  position: relative;
+  z-index: 100;
 }
 
 .footer-columna {
-  max-width: 300px;
-  margin-bottom: 20px;
+  max-width: 280px;
+  text-align: center;
 }
 
 .footer-titulo {
-  font-size: 18px;
+  font-size: 14px;
   color: #045fb4;
-  margin-bottom: 5px;
+  margin-bottom: 3px;
 }
 
 .footer-subtitulo {
-  font-size: 16px;
+  font-size: 12px;
   font-weight: bold;
   color: #045fb4;
-  margin-bottom: 10px;
+  margin-bottom: 3px;
+}
+
+.footer-columna p {
+  font-size: 11px;
+  line-height: 1.2;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .contenedor-botones {
+    padding: 0 20px;
+    justify-content: center;
+    height: 50px;
+  }
+  
+  .botones-paginacion {
+    justify-content: center;
+    gap: 5px;
+  }
+  
+  .botones-paginacion button,
+  .btn-contenido {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+  
+  .contenido-pagina {
+    padding: 20px;
+    margin: 10px;
+    width: calc(100% - 20px);
+  }
+  
+  .header {
+    padding: 15px 20px;
+  }
+  
+  .nav-links a {
+    margin: 0 10px;
+    font-size: 14px;
+  }
+
+  .footer {
+    padding: 5px 20px;
+    font-size: 10px;
+    height: 50px;
+  }
+
+  .footer-columna {
+    max-width: 180px;
+  }
+
+  .contenedor-paginado {
+    height: calc(100vh - 240px); /* Ajuste para móviles */
+  }
 }

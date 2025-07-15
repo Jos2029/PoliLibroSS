@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Glosario - ESCOM IPN</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Estilos específicos para el glosario */
+    .contenedor-glosario {
+      height: calc(100vh - 260px);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .pagina-glosario {
+      display: none;
+      height: 100%;
+      padding: 20px;
+      box-sizing: border-box;
+      background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+      overflow: hidden;
+    }
+
+    .pagina-glosario.activa {
+      display: block;
+    }
+
+    .grid-glosario {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 20px;
+      height: 100%;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .tarjeta-concepto {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      overflow: hidden;
+    }
+
+    .tarjeta-concepto:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+    }
+
+    .concepto-titulo {
+      font-size: 18px;
+      font-weight: bold;
+      color: #045fb4;
+      margin-bottom: 10px;
+      text-align: center;
+      border-bottom: 2px solid #045fb4;
+      padding-bottom: 8px;
+    }
+
+    .concepto-definicion {
+      font-size: 14px;
+      line-height: 1.4;
+      color: #333;
+      text-align: justify;
+      flex-grow: 1;
+      overflow-y: auto;
+    }
+
+    .concepto-definicion::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .concepto-definicion::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+
+    .concepto-definicion::-webkit-scrollbar-thumb {
+      background: #045fb4;
+      border-radius: 10px;
+    }
+
+    .concepto-categoria {
+      background: linear-gradient(45deg, #045fb4, #66a6ff);
+      color: white;
+      padding: 4px 8px;
+      border-radius: 15px;
+      font-size: 10px;
+      text-align: center;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    /* Responsive para el glosario */
+    @media (max-width: 1024px) {
+      .grid-glosario {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        gap: 15px;
+      }
+
+      .concepto-titulo {
+        font-size: 16px;
+      }
+
+      .concepto-definicion {
+        font-size: 13px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .grid-glosario {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+        gap: 10px;
+        padding: 15px;
+      }
+
+      .concepto-titulo {
+        font-size: 14px;
+      }
+
+      .concepto-definicion {
+        font-size: 12px;
+      }
+
+      .tarjeta-concepto {
+        padding: 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .grid-glosario {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(8, 1fr);
+        gap: 10px;
+      }
+
+      .contenedor-glosario {
+        height: calc(100vh - 240px);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="logo-escom">ESCOM IPN</div>
+    <nav class="nav-links">
+      <a href="index.html">Inicio</a>
+      <a href="glosario.html">Glosario</a>
+      <a href="cursos.html">Cursos</a>
+      <a href="cursoActual.html">Curso Actual</a>
+      <a href="#">Contacta a tu profesor</a>
+    </nav>
+    <div class="login-link">Login</div>
+  </header>
+
+  <div class="franja-titulo">
+    <h1 class="titulo-franja" id="titulo-franja">Glosario de Términos</h1>
+  </div>
+
+  <main class="contenedor-glosario">
+    <!-- PÁGINA 1 DEL GLOSARIO -->
+    <div class="pagina-glosario activa">
+      <div class="grid-glosario">
+        <div class="tarjeta-concepto">
+          <div class="concepto-titulo">Algoritmo</div>
+          <div class="concepto-definicion">
+            Secuencia finita de instrucciones bien definidas que resuelven un problema específico. Un algoritmo debe ser preciso, finito y efectivo, proporcionando una solución clara y sistemática a través de pasos lógicos ordenados.
+          </div>
+          <div class="concepto-categoria">Fundamentos</div>
+        </div>
+
+        <div class="tarjeta-concepto">
+          <div class="concepto-titulo">Estructura de Datos</div>
+          <div class="concepto-definicion">
+            Forma particular de organizar y almacenar datos en una computadora para que puedan ser utilizados de manera eficiente. Incluye arrays, listas, pilas, colas, árboles y grafos.
+          </div>
+          <div class="concepto-categoria">Datos</div>
+        </div>
+
+        <div class="tarjeta-concepto">
+          <div class="concepto-titulo">Complejidad Temporal</div>
+          <div class="concepto-definicion">
+            Medida de la cantidad de tiempo que tarda un algoritmo en completarse en función del tamaño de la entrada. Se expresa comúnmente usando la notación Big O (O(n), O(log n), O(n²), etc.).
+          </div>
+          <div class="concepto-categoria">Análisis</div>
+        </div>
+
+        <div class="tarjeta-concepto">
+          <div class="concepto-titulo">Complejidad Espacial</div>
+          <div class="concepto-definicion">
+            Cantidad de memoria adicional que requiere un algoritmo para ejecutarse, excluyendo el espacio necesario para almacenar los datos de entrada. También se mide usando la notación Big O.
+          </div>
+          <div class="concepto-categoria">Análisis</div>
+        </div>
+
+        <div class="tarjeta-concepto">
+          <div class="concepto-titulo">Array</div>
+          <div class="concepto-definicion">
+            Estructura de datos que almacena elementos del mismo tipo en posiciones de memoria contiguas. Los elementos se acceden mediante índices numéricos, comenzando típicamente desde 0.
+          </div>
+          <div class="concepto-categoria">Datos</div>
+        </div>
+
+        <div class="tarjeta-concepto">
+          <div class="concepto-titulo">Lista Enlazada</div>
+          <div class="concepto-definicion">
+            Estructura de datos lineal donde cada elemento (nodo) contiene datos y una referencia al siguiente nodo. Permite inserción y eliminación dinámicas sin necesidad de reorganizar toda la estructura.
+          </div>
+          <div class="concepto-categoria">Datos</div>
+        </div>
+
+        <div class="tarjeta-concepto">
+          <div class="concepto-titulo">Pila (Stack)</div>
+          <div class="concepto-definicion">
+            Estructura de datos que sigue el principio LIFO (Last In, First Out). Los elementos se añaden y eliminan únicamente desde un extremo llamado "tope" de la pila.
+          </div>
+          <div class="concepto-categoria">Datos</div>
+        </div>
+
+        <div class="tarjeta-concepto">
+          <div class="concepto-titulo">Cola (Queue)</div>
+          <div class="concepto-definicion">
+            Estructura de datos que sigue el principio FIFO (First In, First Out). Los elementos se añaden por un extremo (rear) y se eliminan por el otro extremo (front).
+          </div>
+          <div class="concepto-categoria">Datos</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PÁGINA 2 DEL GLOSARIO -->
+    <div class="pagina-glosario">
+      <div class="grid-glosario">
+        <div class="tarjeta-concepto">
+          <div class="concepto-titulo">Árbol Binario</div>
+          <div class="concepto-definicion">
+            Estructura de datos jerárquica donde cada nodo tiene como máximo dos hijos: hijo izquierdo e hijo derecho. Es la base para estructuras más complejas como árboles de búsqueda binaria.
+          </div>
+          <div class="concepto-categoria">Datos</div>
+        </div>
+
+        <div class="tarjeta-concepto">
+          <div class="concepto-titulo">Búsqueda Binaria</div>
+          <div class="concepto-definicion">
+            Algoritmo de búsqueda eficiente que funciona en arrays ordenados. Divide repetidamente el espacio de búsqueda por la mitad hasta encontrar el elemento deseado, con complejidad O(log n).
+          </div>
+          <div class="concepto-categoria">Búsqueda</div>
+        </div>
+
+        <div class="tarjeta-concepto">
+          <div class="concepto-titulo">Búsqueda Lineal</div>
+          <div class="concepto-definicion">
+            Algoritmo de búsqueda que examina cada elemento del array secuencialmente hasta encontrar el elemento deseado o llegar al final. Tiene complejidad temporal O(n).
+          </div>
+          <div class="concepto-categoria">Búsqueda</div>
+        </div>
+
+        <div class="tarjeta-concepto">
+          <div class="concepto-titulo">Bubble Sort</div>
+          <div class="concepto-definicion">
+            Algoritmo de ordenamiento simple que compara repetidamente elementos adyacentes e intercambia aquellos que están en orden incorrecto. Tiene complejidad O(n²) en el peor caso.
+          </div>
+          <div class="concepto-categoria">Ordenamiento</div>
+        </div>
+
+        <div class="tarjeta-concepto">
+          <div class="concepto-titulo">Quick Sort</div>
+          <div class="concepto-definicion">
+            Algoritmo de ordenamiento eficiente que utiliza la estrategia "divide y vencerás". Selecciona un elemento pivote y particiona el array alrededor de él. Complejidad promedio O(n log n).
+          </div>
+          <div class="concepto-categoria">Ordenamiento</div>
+        </div>
+
+        <div class="tarjeta-concepto">
+          <div class="concepto-titulo">Merge Sort</div>
+          <div class="concepto-definicion">
+            Algoritmo de ordenamiento estable que divide el array en mitades, ordena cada mitad recursivamente y luego las combina. Garantiza complejidad O(n log n) en todos los casos.
+          </div>
+          <div class="concepto-categoria">Ordenamiento</div>
+        </div>
+
+        <div class="tarjeta-concepto">
+          <div class="concepto-titulo">Hash Table</div>
+          <div class="concepto-definicion">
+            Estructura de datos que mapea claves a valores usando una función hash. Permite búsqueda, inserción y eliminación en tiempo promedio O(1), siendo muy eficiente para operaciones de acceso rápido.
+          </div>
+          <div class="concepto-categoria">Datos</div>
+        </div>
+
+        <div class="tarjeta-concepto">
+          <div class="concepto-titulo">Recursión</div>
+          <div class="concepto-definicion">
+            Técnica de programación donde una función se llama a sí misma para resolver un problema dividiéndolo en subproblemas más pequeños. Requiere un caso base para evitar recursión infinita.
+          </div>
+          <div class="concepto-categoria">Técnicas</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PÁGINA 3 DEL GLOSARIO -->
+    <div class="pagina-glosario">
+      <div class="grid-glosario">
+        <div class="tarjeta-concepto">
+          <div class="concepto-titulo">Grafo</div>
+          <div class="concepto-definicion">
+            Estructura de datos que consiste en un conjunto de vértices (nodos) conectados por aristas (edges). Pueden ser dirigidos o no dirigidos, y se usan para modelar relaciones y redes.
+          </div>
+          <div class="concepto-categoria">Datos</div>
+        </div>
+
+        <div class="tarjeta-concepto">
+          <div class="concepto-titulo">DFS (Depth-First Search)</div>
+          <div class="concepto-definicion">
+            Algoritmo de búsqueda en grafos que explora tan profundo como sea posible en cada rama antes de retroceder. Utiliza una pila (implícita con recursión o explícita).
+          </div>
+          <div class="concepto-categoria">Búsqueda</div>
+        </div>
+
+        <div class="tarjeta-concepto">
+          <div class="concepto-titulo">BFS (Breadth-First Search)</div>
+          <div class="concepto-definicion">
+            Algoritmo de búsqueda en grafos que explora todos los vértices del nivel actual antes de pasar al siguiente nivel. Utiliza una cola y encuentra el camino más corto en grafos no ponderados.
+          </div>
+          <div class="concepto-categoria">Búsqueda</div>
+        </div>
+
+        <div class="tarjeta-concepto">
+          <div class="concepto-titulo">Heap</div>
+          <div class="concepto-definicion">
+            Árbol binario completo que satisface la propiedad heap: en un max-heap, cada nodo padre es mayor que sus hijos; en un min-heap, cada nodo padre es menor que sus hijos.
+          </div>
+          <div class="concepto-categoria">Datos</div>
+        </div>
+
+        <div class="tarjeta-concepto">
+          <div class="concepto-titulo">Heap Sort</div>
+          <div class="concepto-definicion">
+            Algoritmo de ordenamiento que utiliza una estructura heap. Construye un heap con los elementos y luego extrae repetidamente el elemento máximo. Complejidad O(n log n).
+          </div>
+          <div class="concepto-categoria">Ordenamiento</div>
+        </div>
+
+        <div class="tarjeta-concepto">
+          <div class="concepto-titulo">Árbol AVL</div>
+          <div class="concepto-definicion">
+            Árbol binario de búsqueda auto-balanceado donde las alturas de los dos subárboles de cualquier nodo difieren en como máximo uno. Garantiza operaciones O(log n).
+          </div>
+          <div class="concepto-categoria">Datos</div>
+        </div>
+
+        <div class="tarjeta-concepto">
+          <div class="concepto-titulo">Programación Dinámica</div>
+          <div class="concepto-definicion">
+            Método de resolución de problemas que divide un problema en subproblemas más pequeños y almacena los resultados para evitar cálculos repetitivos. Optimiza algoritmos exponenciales.
+          </div>
+          <div class="concepto-categoria">Técnicas</div>
+        </div>
+
+        <div class="tarjeta-concepto">
+          <div class="concepto-titulo">Backtracking</div>
+          <div class="concepto-definicion">
+            Técnica algorítmica que encuentra soluciones incrementalmente, abandonando candidatos parciales cuando determina que no pueden completarse exitosamente. Usado en problemas de optimización.
+          </div>
+          <div class="concepto-categoria">Técnicas</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- CONTENEDOR PARA BOTONES -->
+  <div class="contenedor-botones">
+    <div class="botones-paginacion">
+      <button onclick="cambiarPagina(-1)">Atrás</button>
+      <button onclick="irAPagina(0)" class="activo">1</button>
+      <button onclick="irAPagina(1)">2</button>
+      <button onclick="irAPagina(2)">3</button>
+      <button onclick="cambiarPagina(1)">Siguiente</button>
+      <a href="index.html" class="btn-contenido">Volver a Inicio</a>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-columna">
+      <h3 class="footer-titulo">Plataforma de educación a distancia</h3>
+      <p class="footer-subtitulo">Escom IPN</p>
+    </div>
+    <div class="footer-columna">
+      <h4 class="footer-subtitulo">Ubicación</h4>
+      <p>Unidad Profesional Adolfo López Mateos,<br>
+         Av. Juan de Dios Bátiz, Nueva Industrial Vallejo,<br>
+         Gustavo A. Madero, 07320 Ciudad de México, CDMX</p>
+    </div>
+    <div class="footer-columna">
+      <h4 class="footer-subtitulo">Contáctanos</h4>
+      <p>email@example.com<br>
+         (555) 555-5555</p>
+    </div>
+  </footer>
+
+  <script>
+    let paginaActual = 0;
+    const paginas = document.querySelectorAll(".pagina-glosario");
+    const tituloFranja = document.getElementById("titulo-franja");
+    const botonesPaginacion = document.querySelectorAll(".botones-paginacion button[onclick*='irAPagina']");
+
+    function mostrarPagina(index) {
+      paginas.forEach((pagina, i) => {
+        pagina.classList.toggle("activa", i === index);
+      });
+      
+      // Actualizar título
+      tituloFranja.textContent = `Glosario de Términos - Página ${index + 1}`;
+      
+      // Actualizar botones activos
+      botonesPaginacion.forEach((boton, i) => {
+        boton.classList.toggle("activo", i === index);
+      });
+    }
+
+    function cambiarPagina(direccion) {
+      paginaActual = (paginaActual + direccion + paginas.length) % paginas.length;
+      mostrarPagina(paginaActual);
+    }
+
+    function irAPagina(index) {
+      paginaActual = index;
+      mostrarPagina(paginaActual);
+    }
+
+    // Inicializar la página
+    mostrarPagina(paginaActual);
+
+    // Agregar estilo para botón activo
+    const style = document.createElement('style');
+    style.textContent = `
+      .botones-paginacion button.activo {
+        background-color: #66a6ff !important;
+        transform: scale(1.1);
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+
+</body>
+</html>

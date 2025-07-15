@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contenido del Curso - ESCOM IPN</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Estilos específicos para la página de contenido del curso */
+    .contenedor-curso {
+      height: calc(100vh - 200px);
+      overflow: hidden;
+      background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+      position: relative;
+    }
+
+    .contenido-curso {
+      display: none;
+      height: 100%;
+      padding: 20px;
+      box-sizing: border-box;
+      justify-content: center;
+      align-items: flex-start;
+      text-align: center;
+      padding-top: 30px;
+      overflow: hidden;
+    }
+
+    .contenido-curso.activa {
+      display: flex;
+    }
+
+    .contenido-pagina-curso {
+      position: relative;
+      z-index: 1;
+      width: calc(100% - 40px);
+      max-width: 1200px;
+      height: calc(100% - 40px);
+      padding: 30px;
+      border-radius: 12px;
+      background-color: rgba(255, 255, 255, 0.95);
+      color: #333;
+      text-align: left;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      overflow-y: auto;
+    }
+
+    .contenido-pagina-curso h2 {
+      margin-bottom: 20px;
+      font-size: 28px;
+      text-align: center;
+      color: #045fb4;
+      border-bottom: 3px solid #045fb4;
+      padding-bottom: 10px;
+    }
+
+    .contenido-pagina-curso h3 {
+      margin-top: 25px;
+      margin-bottom: 15px;
+      font-size: 22px;
+      color: #045fb4;
+    }
+
+    .contenido-pagina-curso h4 {
+      margin-top: 20px;
+      margin-bottom: 12px;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .contenido-pagina-curso p {
+      line-height: 1.6;
+      font-size: 16px;
+      margin-bottom: 15px;
+      text-align: justify;
+    }
+
+    /* Estilos para el índice del curso */
+    .indice-curso {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      border-radius: 10px;
+      padding: 25px;
+      margin-bottom: 20px;
+    }
+
+    .seccion-principal {
+      background: #045fb4;
+      color: white;
+      padding: 15px 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .subseccion {
+      background: rgba(4, 95, 180, 0.1);
+      border-left: 4px solid #045fb4;
+      padding: 15px 20px;
+      margin-bottom: 10px;
+      border-radius: 0 8px 8px 0;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .subseccion:hover {
+      background: rgba(4, 95, 180, 0.2);
+      transform: translateX(5px);
+    }
+
+    .numero-subseccion {
+      font-weight: bold;
+      color: #045fb4;
+      display: inline-block;
+      width: 80px;
+    }
+
+    .titulo-subseccion {
+      color: #333;
+      font-size: 16px;
+    }
+
+    .actividad-especial {
+      background: linear-gradient(45deg, #4CAF50, #45a049);
+      color: white;
+      padding: 15px 20px;
+      border-radius: 8px;
+      margin-top: 15px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    /* Estilos para contenido de temas */
+    .contenido-tema {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 25px;
+      margin-bottom: 20px;
+    }
+
+    .codigo-ejemplo {
+      background: #f4f4f4;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 15px;
+      margin: 15px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      overflow-x: auto;
+    }
+
+    .ejemplo-algoritmo {
+      background: linear-gradient(135deg, #e8f4f8 0%, #d4e7f0 100%);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+      border-left: 4px solid #045fb4;
+    }
+
+    .nota-importante {
+      background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+      border: 1px solid #f0c674;
+      border-radius: 8px;
+      padding: 15px;
+      margin: 15px 0;
+      border-left: 4px solid #f39c12;
+    }
+
+    .definicion {
+      background: linear-gradient(135deg, #e8f5e8 0%, #d4e8d4 100%);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 15px 0;
+      border-left: 4px solid #2ecc71;
+    }
+
+    .lista-caracteristicas {
+      background: rgba(4, 95, 180, 0.05);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 15px 0;
+    }
+
+    .lista-caracteristicas ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .lista-caracteristicas li {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(4, 95, 180, 0.1);
+      position: relative;
+      padding-left: 30px;
+    }
+
+    .lista-caracteristicas li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #045fb4;
+      font-weight: bold;
+    }
+
+    .ejemplo-complejidad {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 20px 0;
+    }
+
+    .complejidad-item {
+      background: white;
+      border-radius: 8px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .complejidad-notacion {
+      font-size: 18px;
+      font-weight: bold;
+      color: #045fb4;
+      margin-bottom: 10px;
+    }
+
+    .complejidad-descripcion {
+      font-size: 14px;
+      color: #666;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .contenido-pagina-curso {
+        padding: 20px;
+        margin: 10px;
+        width: calc(100% - 20px);
+      }
+
+      .ejemplo-complejidad {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+
+      .subseccion {
+        padding: 12px 15px;
+      }
+
+      .numero-subseccion {
+        width: 60px;
+      }
+    }
+
+    
+
+
+
+
+
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="logo-escom">ESCOM IPN</div>
+    <nav class="nav-links">
+      <a href="index.html">Inicio</a>
+      <a href="glosario.html">Glosario</a>
+      <a href="cursos.html">Cursos</a>
+      <a href="#" class="activo">Curso Actual</a>
+      <a href="#">Contacta a tu profesor</a>
+    </nav>
+    <div class="login-link">Login</div>
+  </header>
+
+  <div class="franja-titulo">
+    <h1 class="titulo-franja" id="titulo-franja-curso">Algoritmos y Estructuras de Datos</h1>
+  </div>
+
+  <main class="contenedor-curso">
+    <!-- PÁGINA 1: ÍNDICE DEL CURSO -->
+    <div class="contenido-curso activa" data-titulo="Índice del Curso">
+      <div class="contenido-pagina-curso">
+        <h2>Contenido del Curso</h2>
+        
+        <div class="indice-curso">
+          <div class="seccion-principal">
+            1.1 Algoritmia
+          </div>
+          
+          <div class="subseccion" onclick="irAPaginaCurso(1)">
+            <span class="numero-subseccion">1.1.1</span>
+            <span class="titulo-subseccion">Características de los algoritmos y tipos</span>
+          </div>
+          
+          <div class="subseccion" onclick="irAPaginaCurso(2)">
+            <span class="numero-subseccion">1.1.2</span>
+            <span class="titulo-subseccion">Representación de los algoritmos en pseudocódigo</span>
+          </div>
+          
+          <div class="subseccion" onclick="irAPaginaCurso(3)">
+            <span class="numero-subseccion">1.1.3</span>
+            <span class="titulo-subseccion">Abstracción y tipo de dato abstracto</span>
+          </div>
+          
+          <div class="subseccion" onclick="irAPaginaCurso(4)">
+            <span class="numero-subseccion">1.1.4</span>
+            <span class="titulo-subseccion">Orden de complejidad O de un algoritmo</span>
+          </div>
+          
+          <div class="actividad-especial">
+            📝 Actividad 1: Cuestionario
+          </div>
+        </div>
+
+        <div class="nota-importante">
+          <strong>Nota:</strong> Esta sección corresponde al primer tema del curso. Cada subtema incluye contenido teórico, ejemplos prácticos y ejercicios para reforzar el aprendizaje.
+        </div>
+      </div>
+    </div>
+
+    <!-- PÁGINA 2: 1.1.1 Características de los algoritmos y tipos -->
+    <div class="contenido-curso" data-titulo="1.1.1 Características de los algoritmos y tipos">
+      <div class="contenido-pagina-curso">
+        <h2>1.1.1 Características de los algoritmos y tipos</h2>
+        
+        <div class="definicion">
+          <h3>¿Qué es un algoritmo?</h3>
+          <p>Un algoritmo es una secuencia finita de instrucciones precisas y no ambiguas que, ejecutadas mecánicamente, resuelven un problema específico. Es la base fundamental de la programación y la ciencia de la computación.</p>
+        </div>
+
+        <div class="contenido-tema">
+          <h3>Características fundamentales de los algoritmos</h3>
+          <div class="lista-caracteristicas">
+            <ul>
+              <li><strong>Finitud:</strong> Debe terminar después de un número finito de pasos</li>
+              <li><strong>Definición:</strong> Cada paso debe estar definido de manera precisa</li>
+              <li><strong>Entrada:</strong> Debe tener cero o más entradas bien definidas</li>
+              <li><strong>Salida:</strong> Debe producir una o más salidas</li>
+              <li><strong>Efectividad:</strong> Todas las operaciones deben ser realizables</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="ejemplo-algoritmo">
+          <h4>Ejemplo: Algoritmo para encontrar el mayor de tres números</h4>
+          <div class="codigo-ejemplo">
+1. INICIO
+2. LEER a, b, c
+3. SI a > b ENTONCES
+4.   SI a > c ENTONCES
+5.     IMPRIMIR "El mayor es: " + a
+6.   SINO
+7.     IMPRIMIR "El mayor es: " + c
+8.   FIN SI
+9. SINO
+10.  SI b > c ENTONCES
+11.    IMPRIMIR "El mayor es: " + b
+12.  SINO
+13.    IMPRIMIR "El mayor es: " + c
+14.  FIN SI
+15. FIN SI
+16. FIN
+          </div>
+        </div>
+
+        <div class="contenido-tema">
+          <h3>Tipos de algoritmos</h3>
+          <p>Los algoritmos pueden clasificarse según diferentes criterios:</p>
+          
+          <h4>Por su función:</h4>
+          <ul>
+            <li><strong>Algoritmos de búsqueda:</strong> Localizan elementos específicos en una estructura de datos</li>
+            <li><strong>Algoritmos de ordenamiento:</strong> Organizan elementos según un criterio específico</li>
+            <li><strong>Algoritmos de inserción:</strong> Añaden elementos a una estructura de datos</li>
+            <li><strong>Algoritmos de eliminación:</strong> Remueven elementos de una estructura de datos</li>
+          </ul>
+
+          <h4>Por su estrategia:</h4>
+          <ul>
+            <li><strong>Algoritmos iterativos:</strong> Utilizan estructuras de repetición (bucles)</li>
+            <li><strong>Algoritmos recursivos:</strong> Se llaman a sí mismos para resolver subproblemas</li>
+            <li><strong>Algoritmos divide y vencerás:</strong> Dividen el problema en subproblemas más pequeños</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- PÁGINA 3: 1.1.2 Representación de los algoritmos en pseudocódigo -->
+    <div class="contenido-curso" data-titulo="1.1.2 Representación de algoritmos en pseudocódigo">
+      <div class="contenido-pagina-curso">
+        <h2>1.1.2 Representación de los algoritmos en pseudocódigo</h2>
+        
+        <div class="definicion">
+          <h3>¿Qué es el pseudocódigo?</h3>
+          <p>El pseudocódigo es una forma de escribir algoritmos usando un lenguaje semiformal que combina elementos del lenguaje natural con estructuras de programación. Es independiente del lenguaje de programación y facilita la comprensión del algoritmo.</p>
+        </div>
+
+        <div class="contenido-tema">
+          <h3>Ventajas del pseudocódigo</h3>
+          <div class="lista-caracteristicas">
+            <ul>
+              <li>Fácil de entender y escribir</li>
+              <li>Independiente del lenguaje de programación</li>
+              <li>Permite concentrarse en la lógica del algoritmo</li>
+              <li>Facilita la comunicación entre desarrolladores</li>
+              <li>Simplifica la conversión a código real</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="contenido-tema">
+          <h3>Elementos básicos del pseudocódigo</h3>
+          
+          <h4>Estructuras de control:</h4>
+          <div class="codigo-ejemplo">
+// Estructura condicional
+SI (condición) ENTONCES
+    instrucciones
+SINO
+    instrucciones
+FIN SI
+
+// Estructura iterativa
+MIENTRAS (condición) HACER
+    instrucciones
+FIN MIENTRAS
+
+// Estructura para
+PARA i = 1 HASTA n HACER
+    instrucciones
+FIN PARA
+          </div>
+        </div>
+
+        <div class="ejemplo-algoritmo">
+          <h4>Ejemplo: Algoritmo para calcular factorial</h4>
+          <div class="codigo-ejemplo">
+ALGORITMO CalcularFactorial
+INICIO
+    LEER n
+    factorial = 1
+    SI n < 0 ENTONCES
+        IMPRIMIR "Error: No existe factorial de números negativos"
+    SINO
+        PARA i = 1 HASTA n HACER
+            factorial = factorial * i
+        FIN PARA
+        IMPRIMIR "El factorial de " + n + " es: " + factorial
+    FIN SI
+FIN
+          </div>
+        </div>
+
+        <div class="nota-importante">
+          <strong>Reglas importantes:</strong>
+          <ul>
+            <li>Usar palabras clave en mayúsculas (SI, MIENTRAS, PARA)</li>
+            <li>Indentar correctamente para mostrar la estructura</li>
+            <li>Ser claro y preciso en las instrucciones</li>
+            <li>Evitar detalles específicos del lenguaje de programación</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- PÁGINA 4: 1.1.3 Abstracción y tipo de dato abstracto -->
+    <div class="contenido-curso" data-titulo="1.1.3 Abstracción y tipo de dato abstracto">
+      <div class="contenido-pagina-curso">
+        <h2>1.1.3 Abstracción y tipo de dato abstracto</h2>
+        
+        <div class="definicion">
+          <h3>Abstracción</h3>
+          <p>La abstracción es el proceso de identificar las características esenciales de un objeto o proceso, ignorando los detalles irrelevantes. En programación, permite manejar la complejidad concentrándose en lo que hace un componente, no en cómo lo hace.</p>
+        </div>
+
+        <div class="contenido-tema">
+          <h3>Niveles de abstracción</h3>
+          <div class="lista-caracteristicas">
+            <ul>
+              <li><strong>Abstracción de datos:</strong> Oculta los detalles de implementación de los datos</li>
+              <li><strong>Abstracción de procedimientos:</strong> Oculta los detalles de implementación de las operaciones</li>
+              <li><strong>Abstracción de control:</strong> Oculta los detalles del flujo de control</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="definicion">
+          <h3>Tipo de Dato Abstracto (TDA)</h3>
+          <p>Un TDA es una especificación de un conjunto de datos y las operaciones que se pueden realizar sobre ellos. Define QUÉ operaciones se pueden hacer, pero no CÓMO se implementan.</p>
+        </div>
+
+        <div class="contenido-tema">
+          <h3>Características de un TDA</h3>
+          <div class="lista-caracteristicas">
+            <ul>
+              <li><strong>Encapsulación:</strong> Los datos y operaciones están agrupados</li>
+              <li><strong>Ocultación de información:</strong> Los detalles internos están ocultos</li>
+              <li><strong>Interfaz bien definida:</strong> Se especifican las operaciones permitidas</li>
+              <li><strong>Independencia de implementación:</strong> Puede implementarse de diferentes maneras</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="ejemplo-algoritmo">
+          <h4>Ejemplo: TDA Pila</h4>
+          <div class="codigo-ejemplo">
+TDA Pila
+DATOS:
+    - elementos: arreglo de elementos
+    - tope: entero (índice del último elemento)
+    - tamaño_máximo: entero
+
+OPERACIONES:
+    - crear_pila(): crear una pila vacía
+    - apilar(elemento): insertar elemento en el tope
+    - desapilar(): eliminar y retornar elemento del tope
+    - tope(): retornar elemento del tope sin eliminarlo
+    - está_vacía(): verificar si la pila está vacía
+    - está_llena(): verificar si la pila está llena
+          </div>
+        </div>
+
+        <div class="nota-importante">
+          <strong>Beneficios de los TDA:</strong>
+          <ul>
+            <li>Reutilización de código</li>
+            <li>Mantenimiento más fácil</li>
+            <li>Reducción de errores</li>
+            <li>Modularidad del software</li>
+            <li>Facilita el trabajo en equipo</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- PÁGINA 5: 1.1.4 Orden de complejidad O de un algoritmo -->
+    <div class="contenido-curso" data-titulo="1.1.4 Orden de complejidad O de un algoritmo">
+      <div class="contenido-pagina-curso">
+        <h2>1.1.4 Orden de complejidad O de un algoritmo</h2>
+        
+        <div class="definicion">
+          <h3>Análisis de complejidad</h3>
+          <p>El análisis de complejidad estudia los recursos computacionales (tiempo y espacio) que requiere un algoritmo para resolver un problema en función del tamaño de la entrada.</p>
+        </div>
+
+        <div class="contenido-tema">
+          <h3>Notación Big O</h3>
+          <p>La notación Big O (O-grande) describe el comportamiento asintótico de un algoritmo, es decir, cómo crece el tiempo de ejecución en relación al tamaño de la entrada para valores grandes.</p>
+        </div>
+
+        <div class="ejemplo-complejidad">
+          <div class="complejidad-item">
+            <div class="complejidad-notacion">O(1)</div>
+            <div class="complejidad-descripcion">Tiempo constante - No depende del tamaño de entrada</div>
+          </div>
+          
+          <div class="complejidad-item">
+            <div class="complejidad-notacion">O(log n)</div>
+            <div class="complejidad-descripcion">Tiempo logarítmico - Crece lentamente</div>
+          </div>
+          
+          <div class="complejidad-item">
+            <div class="complejidad-notacion">O(n)</div>
+            <div class="complejidad-descripcion">Tiempo lineal - Crece proporcionalmente</div>
+          </div>
+          
+          <div class="complejidad-item">
+            <div class="complejidad-notacion">O(n log n)</div>
+            <div class="complejidad-descripcion">Tiempo lineal-logarítmico - Eficiente para ordenamiento</div>
+          </div>
+          
+          <div class="complejidad-item">
+            <div class="complejidad-notacion">O(n²)</div>
+            <div class="complejidad-descripcion">Tiempo cuadrático - Crece rápidamente</div>
+          </div>
+          
+          <div class="complejidad-item">
+            <div class="complejidad-notacion">O(2ⁿ)</div>
+            <div class="complejidad-descripcion">Tiempo exponencial - Muy ineficiente</div>
+          </div>
+        </div>
+
+        <div class="ejemplo-algoritmo">
+          <h4>Ejemplos de análisis de complejidad</h4>
+          <div class="codigo-ejemplo">
+// Ejemplo 1: O(1) - Acceso a elemento de arreglo
+elemento = arreglo[5]  // Tiempo constante
+
+// Ejemplo 2: O(n) - Búsqueda lineal
+PARA i = 0 HASTA n-1 HACER
+    SI arreglo[i] = elemento_buscado ENTONCES
+        RETORNAR i
+    FIN SI
+FIN PARA
+
+// Ejemplo 3: O(n²) - Ordenamiento burbuja
+PARA i = 0 HASTA n-2 HACER
+    PARA j = 0 HASTA n-2-i HACER
+        SI arreglo[j] > arreglo[j+1] ENTONCES
+            intercambiar(arreglo[j], arreglo[j+1])
+        FIN SI
+    FIN PARA
+FIN PARA
+          </div>
+        </div>
+
+        <div class="nota-importante">
+          <strong>Factores importantes:</strong>
+          <ul>
+            <li>Siempre se considera el peor caso</li>
+            <li>Se ignoran constantes y términos de menor orden</li>
+            <li>Es más importante la tendencia que el valor exacto</li>
+            <li>Ayuda a comparar algoritmos y tomar decisiones</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- PÁGINA 6: ACTIVIDAD 1 -->
+    <div class="contenido-curso" data-titulo="Actividad 1: Cuestionario">
+      <div class="contenido-pagina-curso">
+        <h2>📝 Actividad 1: Cuestionario</h2>
+        
+        <div class="actividad-especial">
+          Evaluación de conocimientos - Sección 1.1 Algoritmia
+        </div>
+
+        <div class="contenido-tema">
+          <h3>Instrucciones</h3>
+          <p>Responde las siguientes preguntas sobre los conceptos estudiados en la sección 1.1 Algoritmia. Esta actividad te ayudará a consolidar los conocimientos adquiridos.</p>
+          
+          <div class="nota-importante">
+            <strong>Información importante:</strong>
+            <ul>
+              <li>Tiempo estimado: 30 minutos</li>
+              <li>Tipo de evaluación: Formativa</li>
+              <li>Intentos permitidos: 3</li>
+              <li>Puntaje mínimo para aprobar: 70%</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="contenido-tema">
+          <h3>Temas a evaluar</h3>
+          <div class="lista-caracteristicas">
+            <ul>
+              <li>Características fundamentales de los algoritmos</li>
+              <li>Tipos de algoritmos y sus clasificaciones</li>
+              <li>Representación en pseudocódigo</li>
+              <li>Conceptos de abstracción y TDA</li>
+              <li>Análisis de complejidad y notación Big O</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="ejemplo-algoritmo">
+          <h4>Ejemplo de pregunta</h4>
+          <p><strong>¿Cuál de las siguientes NO es una característica fundamental de los algoritmos?</strong></p>
+          <div class="codigo-ejemplo">
+a) Finitud
+b) Definición  
+c) Recursividad
+d) Efectividad
+e) Entrada y salida
+          </div>
+          <p><em>Respuesta correcta: c) Recursividad</em></p>
+        </div>
+
+        <div class="contenido-tema" style="text-align: center; margin-top: 30px;">
+          <button style="background: linear-gradient(45deg, #4CAF50, #45a049); color: white; border: none; padding: 15px 30px; border-radius: 8px; font-size: 16px; cursor: pointer; font-weight: bold;">
+            Iniciar Cuestionario
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- CONTENEDOR PARA BOTONES -->
+  <div class="contenedor-botones">
+    <div class="botones-paginacion">
+      <button onclick="cambiarPaginaCurso(-1)">Atrás</button>
+      <button onclick="irAPaginaCurso(0)">Índice</button>
+      <button onclick="irAPaginaCurso(1)">1.1.1</button>
+      <button onclick="irAPaginaCurso(2)">1.1.2</button>
+      <button onclick="irAPaginaCurso(3)">1.1.3</button>
+      <button onclick="irAPaginaCurso(4)">1.1.4</button>
+      <button onclick="irAPaginaCurso(5)">Actividad</button>
+      <button onclick="cambiarPaginaCurso(1)">Siguiente</button>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-columna">
+      <h3 class="footer-titulo">Plataforma de educación a distancia</h3>
+      <p class="footer-subtitulo">Escom IPN</p>
+    </div>
+    <div class="footer-columna">
+      <h4 class="footer-subtitulo">Ubicación</h4>
+      <p>Unidad Profesional Adolfo López Mateos,<br>
+         Av. Juan de Dios Bátiz, Nueva Industrial Vallejo,<br>
+         Gustavo A. Madero, 07320 Ciudad de México, CDMX</p>
+    </div>
+    <div class="footer-columna">
+      <h4 class="footer-subtitulo">Contáctanos</h4>
+      <p>email@example.com<br>
+         (555) 555-5555</p>
+    </div>
+  </footer>
+
+  <script>
+    let paginaActualCurso = 0;
+    const paginasCurso = document.querySelectorAll(".contenido-curso");
+    const tituloFranjaCurso = document.getElementById("titulo-franja-curso");
+
+    function mostrarPaginaCurso(index) {
+      paginasCurso.forEach((pagina, i) => {
+        pagina.classList.toggle("activa", i === index);
+      });
+      // Actualizar el título de la franja
+      const titulo = paginasCurso[index].getAttribute("data-titulo");
+      tituloFranjaCurso.textContent = titulo;
+    }
+
+    function cambiarPaginaCurso(direccion) {
+      paginaActualCurso += direccion;
+      
+      // Controlar límites
+      if (paginaActualCurso < 0) {
+        paginaActualCurso = 0;
+      } else if (paginaActualCurso >= paginasCurso.length) {
+        paginaActualCurso = paginasCurso.length - 1;
+      }
+      
+      mostrarPaginaCurso(paginaActualCurso);
+    }
+
+    function irAPaginaCurso(index) {
+      if (index >= 0 && index < paginasCurso.length) {
+        paginaActualCurso = index;
+        mostrarPaginaCurso(paginaActualCurso);
+      }
+    }
+
+    // Inicializar la página
+    document.addEventListener("DOMContentLoaded", function() {
+      mostrarPaginaCurso(0); // Mostrar índice por defecto
+    });
+
+    // Navegación con teclado
+    document.addEventListener("keydown", function(event) {
+      if (event.key === "ArrowLeft") {
+        cambiarPaginaCurso(-1);
+      } else if (event.key === "ArrowRight") {
+        cambiarPaginaCurso(1);
+      }
+    });
+  </script>
+</body>
+</html>

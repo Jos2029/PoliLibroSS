@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cursos - ESCOM IPN</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Estilos específicos para la página de cursos */
+    .contenedor-cursos {
+      height: calc(100vh - 200px);
+      overflow-y: auto;
+      background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+      padding: 40px 20px;
+      box-sizing: border-box;
+    }
+
+    .intro-cursos {
+      text-align: center;
+      margin-bottom: 40px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+      max-width: 1000px;
+      margin: 0 auto 40px auto;
+    }
+
+    .intro-cursos h2 {
+      color: #045fb4;
+      font-size: 32px;
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+
+    .intro-cursos p {
+      font-size: 16px;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .grid-cursos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .tarjeta-curso {
+      background: rgba(255, 255, 255, 0.98);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      transition: all 0.4s ease;
+      position: relative;
+      min-height: 500px;
+    }
+
+    .tarjeta-curso:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+    }
+
+    .imagen-curso {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .tarjeta-curso:hover .imagen-curso {
+      transform: scale(1.05);
+    }
+
+    .contenido-curso {
+      padding: 25px;
+      position: relative;
+    }
+
+    .titulo-curso {
+      font-size: 24px;
+      font-weight: bold;
+      color: #045fb4;
+      margin-bottom: 15px;
+      text-align: center;
+      border-bottom: 2px solid #045fb4;
+      padding-bottom: 10px;
+    }
+
+    .descripcion-curso {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      text-align: justify;
+    }
+
+    .detalles-curso {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .creditos, .semestre {
+      background: linear-gradient(45deg, #045fb4, #66a6ff);
+      color: white;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .estado-curso {
+      background: #4CAF50;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .botones-curso {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .btn-curso {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 25px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .btn-acceder {
+      background: linear-gradient(45deg, #4CAF50, #45a049);
+      color: white;
+    }
+
+    .btn-acceder:hover {
+      background: linear-gradient(45deg, #45a049, #3d8b40);
+      transform: scale(1.05);
+    }
+
+    .btn-info {
+      background: linear-gradient(45deg, #045fb4, #66a6ff);
+      color: white;
+    }
+
+    .btn-info:hover {
+      background: linear-gradient(45deg, #033b82, #4d8cff);
+      transform: scale(1.05);
+    }
+
+    .overlay-curso {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(4, 95, 180, 0.9), rgba(102, 166, 255, 0.9));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .tarjeta-curso:hover .overlay-curso {
+      opacity: 1;
+    }
+
+    .overlay-texto {
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .overlay-texto h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .overlay-texto p {
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    /* Estilos específicos para cada curso */
+    .curso-algoritmos {
+      border-left: 5px solid #e74c3c;
+    }
+
+    .curso-calculo {
+      border-left: 5px solid #3498db;
+    }
+
+    .curso-sistemas {
+      border-left: 5px solid #2ecc71;
+    }
+
+    .curso-teoria {
+      border-left: 5px solid #9b59b6;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .grid-cursos {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 0 10px;
+      }
+
+      .tarjeta-curso {
+        min-height: 450px;
+      }
+
+      .contenedor-cursos {
+        height: calc(100vh - 180px);
+        padding: 20px 10px;
+      }
+
+      .intro-cursos {
+        padding: 20px;
+        margin-bottom: 30px;
+      }
+
+      .intro-cursos h2 {
+        font-size: 26px;
+      }
+
+      .titulo-curso {
+        font-size: 20px;
+      }
+
+      .detalles-curso {
+        justify-content: center;
+      }
+
+      .botones-curso {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn-curso {
+        width: 100%;
+        max-width: 200px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .grid-cursos {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+
+      .tarjeta-curso {
+        min-height: 400px;
+      }
+
+      .imagen-curso {
+        height: 200px;
+      }
+
+      .contenido-curso {
+        padding: 20px;
+      }
+
+      .intro-cursos h2 {
+        font-size: 22px;
+      }
+
+      .titulo-curso {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="logo-escom">ESCOM IPN</div>
+    <nav class="nav-links">
+      <a href="index.html">Inicio</a>
+      <a href="glosario.html">Glosario</a>
+      <a href="cursos.html">Cursos</a>
+      <a href="cursoActual.html">Curso Actual</a>
+      <a href="#">Contacta a tu profesor</a>
+    </nav>
+    <div class="login-link">Login</div>
+  </header>
+
+  <div class="franja-titulo">
+    <h1 class="titulo-franja">Cursos Disponibles</h1>
+  </div>
+
+  <main class="contenedor-cursos">
+    <div class="intro-cursos">
+      <h2>Plataforma de Educación a Distancia</h2>
+      <p>
+        Descubre nuestra oferta académica diseñada para complementar tu formación presencial. 
+        Cada curso cuenta con recursos interactivos, materiales de estudio y actividades 
+        prácticas que te ayudarán a dominar los conceptos fundamentales de la ingeniería 
+        en sistemas computacionales.
+      </p>
+    </div>
+
+    <div class="grid-cursos">
+      <!-- Curso: Algoritmos y Estructuras de Datos -->
+      <div class="tarjeta-curso curso-algoritmos">
+        <img src="img/algoritmos.jpg" alt="Algoritmos y Estructuras de Datos" class="imagen-curso">
+        <div class="contenido-curso">
+          <div class="titulo-curso">Algoritmos y Estructuras de Datos</div>
+          <div class="descripcion-curso">
+            Aprende los fundamentos de la programación eficiente a través del estudio de algoritmos 
+            clásicos y estructuras de datos fundamentales. Este curso te preparará para resolver 
+            problemas complejos utilizando las mejores prácticas de la industria.
+          </div>
+          <div class="detalles-curso">
+            <div class="creditos">4.5 Créditos</div>
+            <div class="semestre">2° Semestre</div>
+            <div class="estado-curso">Disponible</div>
+          </div>
+          <div class="botones-curso">
+            <a href="index.html" class="btn-curso btn-acceder">Acceder al Curso</a>
+            <a href="#" class="btn-curso btn-info">Más Información</a>
+          </div>
+        </div>
+        <div class="overlay-curso">
+          <div class="overlay-texto">
+            <h3>¿Qué aprenderás?</h3>
+            <p>• Análisis de complejidad algorítmica<br>
+               • Estructuras de datos fundamentales<br>
+               • Algoritmos de ordenamiento y búsqueda<br>
+               • Resolución de problemas computacionales</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Curso: Cálculo -->
+      <div class="tarjeta-curso curso-calculo">
+        <img src="img/calculo.png" alt="Cálculo" class="imagen-curso">
+        <div class="contenido-curso">
+          <div class="titulo-curso">Cálculo Diferencial e Integral</div>
+          <div class="descripcion-curso">
+            Domina los conceptos matemáticos fundamentales necesarios para la ingeniería. 
+            Este curso cubre desde límites y derivadas hasta integrales y sus aplicaciones 
+            en problemas de ingeniería computacional.
+          </div>
+          <div class="detalles-curso">
+            <div class="creditos">6.0 Créditos</div>
+            <div class="semestre">1° Semestre</div>
+            <div class="estado-curso">Disponible</div>
+          </div>
+          <div class="botones-curso">
+            <a href="#" class="btn-curso btn-acceder">Acceder al Curso</a>
+            <a href="#" class="btn-curso btn-info">Más Información</a>
+          </div>
+        </div>
+        <div class="overlay-curso">
+          <div class="overlay-texto">
+            <h3>¿Qué aprenderás?</h3>
+            <p>• Límites y continuidad<br>
+               • Derivadas y aplicaciones<br>
+               • Integrales definidas e indefinidas<br>
+               • Aplicaciones en ingeniería</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Curso: Sistemas Operativos -->
+      <div class="tarjeta-curso curso-sistemas">
+        <img src="img/linux.webp" alt="Sistemas Operativos" class="imagen-curso">
+        <div class="contenido-curso">
+          <div class="titulo-curso">Sistemas Operativos</div>
+          <div class="descripcion-curso">
+            Explora el funcionamiento interno de los sistemas operativos modernos. 
+            Aprende sobre gestión de procesos, memoria, archivos y dispositivos, 
+            con énfasis en sistemas Unix/Linux y Windows.
+          </div>
+          <div class="detalles-curso">
+            <div class="creditos">4.5 Créditos</div>
+            <div class="semestre">4° Semestre</div>
+            <div class="estado-curso">Disponible</div>
+          </div>
+          <div class="botones-curso">
+            <a href="#" class="btn-curso btn-acceder">Acceder al Curso</a>
+            <a href="#" class="btn-curso btn-info">Más Información</a>
+          </div>
+        </div>
+        <div class="overlay-curso">
+          <div class="overlay-texto">
+            <h3>¿Qué aprenderás?</h3>
+            <p>• Gestión de procesos y hilos<br>
+               • Administración de memoria<br>
+               • Sistemas de archivos<br>
+               • Programación en shell</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Curso: Teoría de la Computación -->
+      <div class="tarjeta-curso curso-teoria">
+        <img src="img/teoria.jpg" alt="Teoría de la Computación" class="imagen-curso">
+        <div class="contenido-curso">
+          <div class="titulo-curso">Teoría de la Computación</div>
+          <div class="descripcion-curso">
+            Descubre los fundamentos teóricos de la ciencia de la computación. 
+            Estudia autómatas, lenguajes formales, máquinas de Turing y los límites 
+            de la computabilidad en este fascinante campo.
+          </div>
+          <div class="detalles-curso">
+            <div class="creditos">4.5 Créditos</div>
+            <div class="semestre">5° Semestre</div>
+            <div class="estado-curso">Disponible</div>
+          </div>
+          <div class="botones-curso">
+            <a href="#" class="btn-curso btn-acceder">Acceder al Curso</a>
+            <a href="#" class="btn-curso btn-info">Más Información</a>
+          </div>
+        </div>
+        <div class="overlay-curso">
+          <div class="overlay-texto">
+            <h3>¿Qué aprenderás?</h3>
+            <p>• Autómatas finitos y gramáticas<br>
+               • Lenguajes regulares y libres<br>
+               • Máquinas de Turing<br>
+               • Complejidad computacional</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-columna">
+      <h3 class="footer-titulo">Plataforma de educación a distancia</h3>
+      <p class="footer-subtitulo">Escom IPN</p>
+    </div>
+    <div class="footer-columna">
+      <h4 class="footer-subtitulo">Ubicación</h4>
+      <p>Unidad Profesional Adolfo López Mateos,<br>
+         Av. Juan de Dios Bátiz, Nueva Industrial Vallejo,<br>
+         Gustavo A. Madero, 07320 Ciudad de México, CDMX</p>
+    </div>
+    <div class="footer-columna">
+      <h4 class="footer-subtitulo">Contáctanos</h4>
+      <p>email@example.com<br>
+         (555) 555-5555</p>
+    </div>
+  </footer>
+
+  <script>
+    // Agregar efectos de animación al cargar la página
+    document.addEventListener('DOMContentLoaded', function() {
+      const tarjetas = document.querySelectorAll('.tarjeta-curso');
+      
+      // Animación de entrada escalonada
+      tarjetas.forEach((tarjeta, index) => {
+        tarjeta.style.opacity = '0';
+        tarjeta.style.transform = 'translateY(50px)';
+        
+        setTimeout(() => {
+          tarjeta.style.transition = 'all 0.8s ease';
+          tarjeta.style.opacity = '1';
+          tarjeta.style.transform = 'translateY(0)';
+        }, index * 200);
+      });
+    });
+
+    // Efecto de paralaje en scroll
+    window.addEventListener('scroll', function() {
+      const scrolled = window.pageYOffset;
+      const contenedor = document.querySelector('.contenedor-cursos');
+      const tarjetas = document.querySelectorAll('.tarjeta-curso');
+      
+      tarjetas.forEach((tarjeta, index) => {
+        const speed = 0.1 + (index * 0.05);
+        const yPos = -(scrolled * speed);
+        tarjeta.style.transform = `translateY(${yPos}px)`;
+      });
+    });
+
+    // Efecto de tracking del mouse
+    document.querySelectorAll('.tarjeta-curso').forEach(tarjeta => {
+      tarjeta.addEventListener('mousemove', function(e) {
+        const rect = tarjeta.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = (y - centerY) / 20;
+        const rotateY = (centerX - x) / 20;
+        
+        tarjeta.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(0)`;
+      });
+      
+      tarjeta.addEventListener('mouseleave', function() {
+        tarjeta.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+      });
+    });
+  </script>
+
+</body>
+</html>
